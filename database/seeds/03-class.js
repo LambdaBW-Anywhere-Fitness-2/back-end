@@ -1,0 +1,40 @@
+exports.seed = function (knex) {
+  return knex("class").insert([
+    {
+      class_name: "Yoga with Richard",
+      type: "Yoga",
+      start_time: "Early Morning",
+      start_date: "12-12-2020",
+      duration: "0-15 min",
+      intensity_level: "Beginner",
+      location: "500 street 220 SF,CA",
+      registered_attendees: 2,
+      class_size: 10,
+      instructor_id: 1,
+    },
+    {
+      class_name: "Boxing with James Wilkinson",
+      type: "Boxing",
+      start_time: "Midday",
+      start_date: "2-11-2020",
+      duration: "15-30 min",
+      intensity_level: "Intermediate",
+      location: "100 street 220 SF,CA",
+      registered_attendees: 5,
+      class_size: 9,
+      instructor_id: 2,
+    },
+    {
+      class_name: "Running with Wilkinson",
+      type: "Running",
+      start_time: "Late Morning",
+      start_date: "12-2-2020",
+      duration: "30-45 min",
+      intensity_level: "Advanced",
+      location: "300 street 220 SF,CA",
+      registered_attendees: 2,
+      class_size: 20,
+      instructor_id: 3,
+    },
+  ]);
+};
