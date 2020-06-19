@@ -33,6 +33,14 @@ function findClassById(id) {
   return db("class").where({ id: id });
 }
 
+function deleteclass(id, cid) {
+  // console.log(nwclass);
+  return db("client_class")
+    .where({ client_id: id, class_id: cid })
+    .first()
+    .del();
+}
+
 module.exports = {
   findAllClient,
   findClientByEmail,
@@ -42,4 +50,5 @@ module.exports = {
   findClientById,
   findClientClassById,
   enrollclass,
+  deleteclass,
 };

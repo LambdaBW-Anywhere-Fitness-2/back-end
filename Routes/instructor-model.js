@@ -23,6 +23,32 @@ function createclass(nwclass) {
   return db("class").insert(nwclass);
 }
 
+function updateclass(updateclass, id) {
+  // console.log(nwclass);
+  return db("class")
+    .where({ id: id })
+    .first()
+    .update(updateclass)
+    .then(() => {
+      return db("class").where({ id: id });
+    });
+}
+
+function deleteclass(id) {
+  // console.log(nwclass);
+  return db("class")
+    .where({ id: id })
+    .then((removedClass) => {
+      return db("class")
+        .where({ id: id })
+        .first()
+        .del()
+        .then(() => {
+          return removedClass;
+        });
+    });
+}
+
 module.exports = {
   findAllInstructor,
   findInstructorById,
@@ -30,4 +56,6 @@ module.exports = {
   findInstructorByEmail,
   addInstructor,
   createclass,
+  updateclass,
+  deleteclass,
 };
