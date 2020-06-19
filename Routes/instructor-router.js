@@ -50,4 +50,45 @@ router.post("/createclass", checkJWT, async (req, res) => {
   }
 });
 
+/// didnt require JWT for  front-end usage will add later
+router.put("/updateclass/:id", async (req, res) => {
+  const { id } = req.params;
+  const updateclass = req.body;
+
+  // console.log(id);
+
+  try {
+    const [data] = await dbInstructor.updateclass(updateclass, id);
+
+    // console.log(classData);
+    if (data) {
+      res.status(200).json(data);
+    } else {
+      res.status(404).json({ err: "Couldn't update the class" });
+    }
+  } catch (err) {
+    res.status(500).json({ err: "Server Error" });
+  }
+});
+
+/// didnt require JWT for  front-end usage will add later
+router.delete("/deleteclass/:id", async (req, res) => {
+  const { id } = req.params;
+
+  // console.log(id);
+
+  try {
+    const [data] = await dbInstructor.deleteclass(id);
+
+    // console.log(classData);
+    if (data) {
+      res.status(200).json({ "deleted class successfully": data });
+    } else {
+      res.status(404).json({ err: "Couldn't delete the class" });
+    }
+  } catch (err) {
+    res.status(500).json({ err: "Server Error" });
+  }
+});
+
 module.exports = router;
