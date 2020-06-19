@@ -1,7 +1,7 @@
 exports.seed = function (knex) {
   return knex("class").insert([
     {
-      class_name: "Yoga with Richard",
+      class_name: "Yoga with Marlene Moreno",
       type: "Yoga",
       start_time: "Early Morning",
       start_date: "12-12-2020",
@@ -13,7 +13,7 @@ exports.seed = function (knex) {
       instructor_id: 1,
     },
     {
-      class_name: "Boxing with James Wilkinson",
+      class_name: "Boxing with Teresa Myers",
       type: "Boxing",
       start_time: "Midday",
       start_date: "2-11-2020",
@@ -25,9 +25,21 @@ exports.seed = function (knex) {
       instructor_id: 2,
     },
     {
-      class_name: "Running with Wilkinson",
+      class_name: "Running with Mary",
       type: "Running",
       start_time: "Late Morning",
+      start_date: "12-2-2020",
+      duration: "30-45 min",
+      intensity_level: "Advanced",
+      location: "300 street 220 SF,CA",
+      registered_attendees: 2,
+      class_size: 20,
+      instructor_id: 3,
+    },
+    {
+      class_name: "Running with Mary Afternoon Class",
+      type: "Running",
+      start_time: "Late Afternoon",
       start_date: "12-2-2020",
       duration: "30-45 min",
       intensity_level: "Advanced",

@@ -47,7 +47,11 @@ router.post("/signin/client", (req, res) => {
           bcryptjs.compareSync(clientInfo.password, found.password)
         ) {
           const token = generateToken(found);
-          res.status(200).json({ message: "Login Successful", token });
+          res.status(200).json({
+            message: "Login Successful",
+            client_id: found.id,
+            token,
+          });
         } else {
           res.status(401).json({ message: "Invalid credentials" });
         }
@@ -92,8 +96,8 @@ router.post("/signin/instructor", (req, res) => {
   const instructorInfo = req.body;
   //console.log(clientInfo);
   if (infoIsValidInstructorSignin(instructorInfo)) {
-    dbInstructor;
-    findInstructorByEmail(instructorInfo.email)
+    dbInstructor
+      .findInstructorByEmail(instructorInfo.email)
       .then(([found]) => {
         // console.log(found, found.password, instructorInfo.password);
         if (
@@ -101,15 +105,19 @@ router.post("/signin/instructor", (req, res) => {
           bcryptjs.compareSync(instructorInfo.password, found.password)
         ) {
           const token = generateToken(found);
-          res.status(200).json({ message: "Login Successful", token });
+          res
+            .status(200)
+            .json({
+              message: "Login Successful",
+              instructor_id: found.id,
+              token,
+            });
         } else {
           res.status(401).json({ message: "Invalid credentials" });
         }
       })
       .catch((err) => {
-        res
-          .status(500)
-          .json({ message: "Server Error Try Again Later", error: err });
+        res.status(500).json({ message: "Server Error Try Again", error: err });
       });
   } else {
     res.status(404).json({
@@ -126,7 +134,7 @@ function generateToken(info) {
   };
 
   const options = {
-    expiresIn: "2h",
+    expiresIn: "4h",
   };
   return jwt.sign(payload, secret.jwtSecret, options);
 }
