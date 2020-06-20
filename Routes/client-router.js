@@ -37,13 +37,12 @@ module.exports = router;
 /// didnt require JWT for  front-end usage will add later
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  // console.log(id);
 
   try {
     const [data] = await dbClient.findClientById(id);
     const classData = await dbClient.findClientClassById(id);
     data.enrolled_class = classData;
-    //console.log(classData);
+
     if (data) {
       res.status(200).json(data);
     } else {
@@ -57,7 +56,7 @@ router.get("/:id", async (req, res) => {
 /// didnt require JWT for  front-end usage will add later
 router.post("/:id/enrollclass/:cid", async (req, res) => {
   const { id, cid } = req.params;
-  // console.log(id, cid);
+
   const enrollmentinfo = { client_id: id, class_id: cid };
 
   if (enrollmentinfo.client_id && enrollmentinfo.class_id) {
@@ -65,14 +64,12 @@ router.post("/:id/enrollclass/:cid", async (req, res) => {
       const [data] = await dbClient.enrollclass(enrollmentinfo);
       const classData = await dbClient.findClassById(cid);
 
-      //console.log(classData);
       if (data) {
         res.status(200).json({ enrolledclass: classData });
       } else {
         res.status(404).json({ err: "Couldn't enroll to class" });
       }
     } catch (err) {
-      //  console.log("a", err);
       res.status(500).json({ err: "Server Error", err: err });
     }
   } else {
@@ -84,12 +81,9 @@ router.post("/:id/enrollclass/:cid", async (req, res) => {
 router.delete("/:id/deleteclass/:cid", async (req, res) => {
   const { id, cid } = req.params;
 
-  // console.log(id);
-
   try {
     const data = await dbClient.deleteclass(id, cid);
 
-    // console.log(classData);
     if (data) {
       res.status(200).json("class deleted successfully");
     } else {

@@ -19,12 +19,10 @@ function addInstructor(instructor) {
   return db("instructor").insert(instructor);
 }
 function createclass(nwclass) {
-  // console.log(nwclass);
   return db("class").insert(nwclass);
 }
 
 function updateclass(updateclass, id) {
-  // console.log(nwclass);
   return db("class")
     .where({ id: id })
     .first()
@@ -35,7 +33,6 @@ function updateclass(updateclass, id) {
 }
 
 function deleteclass(id) {
-  // console.log(nwclass);
   return db("class")
     .where({ id: id })
     .then((removedClass) => {

@@ -34,7 +34,6 @@ function findClassById(id) {
 }
 
 function deleteclass(id, cid) {
-  // console.log(nwclass);
   return db("client_class")
     .where({ client_id: id, class_id: cid })
     .first()
