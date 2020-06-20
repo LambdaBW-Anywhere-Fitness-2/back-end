@@ -14,7 +14,7 @@ const { findInstructorByEmail } = require("../Routes/instructor-model");
 
 router.post("/signup/client", (req, res) => {
   const clientInfo = req.body;
-  //console.log(clientInfo);
+
   if (infoIsValidClient(clientInfo)) {
     const rounds = process.env.BCRYPT_ROUNDS || 8;
     const hash = bcryptjs.hashSync(clientInfo.password, rounds);
@@ -36,12 +36,11 @@ router.post("/signup/client", (req, res) => {
 
 router.post("/signin/client", (req, res) => {
   const clientInfo = req.body;
-  //console.log(clientInfo);
+
   if (infoIsValidClientSignin(clientInfo)) {
     dbClient
       .findClientByEmail(clientInfo.email)
       .then(([found]) => {
-        //   console.log(found, found.password, clientInfo.password);
         if (
           clientInfo &&
           bcryptjs.compareSync(clientInfo.password, found.password)
@@ -72,7 +71,7 @@ router.post("/signin/client", (req, res) => {
 
 router.post("/signup/instructor", (req, res) => {
   const instructorInfo = req.body;
-  //console.log(clientInfo);
+
   if (infoIsValidInstructor(instructorInfo)) {
     const rounds = process.env.BCRYPT_ROUNDS || 8;
     const hash = bcryptjs.hashSync(instructorInfo.password, rounds);
@@ -94,24 +93,21 @@ router.post("/signup/instructor", (req, res) => {
 
 router.post("/signin/instructor", (req, res) => {
   const instructorInfo = req.body;
-  //console.log(clientInfo);
+
   if (infoIsValidInstructorSignin(instructorInfo)) {
     dbInstructor
       .findInstructorByEmail(instructorInfo.email)
       .then(([found]) => {
-        // console.log(found, found.password, instructorInfo.password);
         if (
           instructorInfo &&
           bcryptjs.compareSync(instructorInfo.password, found.password)
         ) {
           const token = generateToken(found);
-          res
-            .status(200)
-            .json({
-              message: "Login Successful",
-              instructor_id: found.id,
-              token,
-            });
+          res.status(200).json({
+            message: "Login Successful",
+            instructor_id: found.id,
+            token,
+          });
         } else {
           res.status(401).json({ message: "Invalid credentials" });
         }
