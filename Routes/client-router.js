@@ -6,6 +6,7 @@ const checkJWT = require("../middlewares/restricted-midd");
 router.get("/", checkJWT, async (req, res) => {
   try {
     const data = await dbClient.findAllClient();
+
     if (data.length > 0) {
       res.status(200).json(data);
     } else {

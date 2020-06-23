@@ -13,7 +13,11 @@ function findInstructorClassesById(id) {
 }
 
 function findInstructorByEmail(email) {
-  return db("instructor").where({ email: email });
+  return db("instructor")
+    .where({ email: email })
+    .then((res) => {
+      return res;
+    });
 }
 function addInstructor(instructor) {
   return db("instructor").insert(instructor);
