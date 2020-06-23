@@ -34,38 +34,89 @@ router.post("/signup/client", (req, res) => {
   }
 });
 
-router.post("/signin/client", (req, res) => {
-  const clientInfo = req.body;
+router.post("/signin", async (req, res) => {
+  const Info = req.body;
+  let clientInfo;
+  let instructorInfo;
+  if (infoIsValidClientSignin(Info)) {
+    try {
+      [clientInfo] = await dbClient.findClientByEmail(Info.email);
+      [instructorInfo] = await dbInstructor.findInstructorByEmail(Info.email);
+      console.log("c", clientInfo);
+      console.log("I", instructorInfo);
+    } catch (err) {
+      res
+        .status(500)
+        .json({ message: "Server Error Try Again Later", error: err });
+    }
 
-  if (infoIsValidClientSignin(clientInfo)) {
-    dbClient
-      .findClientByEmail(clientInfo.email)
-      .then(([found]) => {
-        if (
-          clientInfo &&
-          bcryptjs.compareSync(clientInfo.password, found.password)
-        ) {
-          const token = generateToken(found);
-          res.status(200).json({
-            message: "Login Successful",
-            client_id: found.id,
-            token,
-          });
-        } else {
-          res.status(401).json({ message: "Invalid credentials" });
-        }
-      })
-      .catch((err) => {
-        res
-          .status(500)
-          .json({ message: "Server Error Try Again Later", error: err });
-      });
+    if (clientInfo) {
+      if (Info && bcryptjs.compareSync(Info.password, clientInfo.password)) {
+        const token = generateToken(clientInfo);
+        res.status(200).json({
+          message: "Login Successful",
+          client_id: clientInfo.id,
+          role_id: 1,
+          token,
+        });
+      } else {
+        res.status(401).json({ message: "Invalid credentials" });
+      }
+    } else if (instructorInfo) {
+      if (
+        Info &&
+        bcryptjs.compareSync(Info.password, instructorInfo.password)
+      ) {
+        const token = generateToken(instructorInfo);
+        res.status(200).json({
+          message: "Login Successful",
+          instructor_id: instructorInfo.id,
+          role_id: 123,
+          token,
+        });
+      } else {
+        res.status(401).json({ message: "Invalid credentials" });
+      }
+    }
   } else {
     res.status(404).json({
       message: "please provide email and password (String) ",
     });
   }
 });
+
+// router.post("/signin/client", (req, res) => {
+//   const clientInfo = req.body;
+
+//   if (infoIsValidClientSignin(clientInfo)) {
+//     dbClient
+//       .findClientByEmail(clientInfo.email)
+//       .then(([found]) => {
+//         if (
+//           clientInfo &&
+//           bcryptjs.compareSync(clientInfo.password, found.password)
+//         ) {
+//           const token = generateToken(found);
+//           res.status(200).json({
+//             message: "Login Successful",
+//             client_id: found.id,
+//             token,
+//           });
+//         } else {
+//           res.status(401).json({ message: "Invalid credentials" });
+//         }
+//       })
+//       .catch((err) => {
+//         res
+//           .status(500)
+//           .json({ message: "Server Error Try Again Later", error: err });
+//       });
+//   } else {
+//     res.status(404).json({
+//       message: "please provide email and password (String) ",
+//     });
+//   }
+// });
 
 // --------- INSTRUCTOR---------////
 

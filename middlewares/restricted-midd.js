@@ -7,14 +7,12 @@ function checkJWT(req, res, next) {
   if (token) {
     jwt.verify(token, secrets.jwtSecret, (err, decodedToken) => {
       if (err) {
-        res
-          .status(401)
-          .json({
-            errorMessage: "provided token couldn't verify Log in Please",
-          });
+        res.status(401).json({
+          errorMessage: "provided token couldn't verify Log in Please",
+        });
       } else {
         req.decodedJwt = decodedToken;
-        //   console.log(req.decodedJwt);
+        //console.log(req.decodedJwt);
         next();
       }
     });
