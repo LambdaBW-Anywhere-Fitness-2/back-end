@@ -14,19 +14,19 @@ Link: https://anywherefitnessapp.herokuapp.com/
 ### Instructor & Client		
 | Request	  | Endpoint |  Description |
 | ------------- | ------------- | ------------- |
-| POST | /api/signin		 |  Sign In for Client and Instructor Api will return role_id  |
+| POST | /api/signin		 |  Sign In for Client and Instructor. Api returns role_id  |
 
 		
 ### Instructor	
 | Request	  | Endpoint |  Description|
 | ------------- | ------------- |  ------------- |
-|GET |	/api/instructor                   |	        return all Instructors                                    |
-|GET |	/api/instructor/:id	              |       return detailed instructor info by instructor id           |
+|GET |	/api/instructor                   |	      It returns all Instructors                                    |
+|GET |	/api/instructor/:id	              |       It returns detailed instructor info by instructor id           |
 |POST	| /api/signup/instructor	          |       Sign Up New Instructor                                       |
 |POST	| /api/signin/instructor	          |       Sign In  Instructor                                            |
-|POST	| /api/instructor/createclass	      |       create new class as a instructor                             |
-|UPDATE	| /api/instructor/updateclass/:cid |      update class as a instructor :cid -> class id               |
-|DELETE	| /api/instructor/deleteclass/:cid  |	    delete created class as a instructor \| :cid -> classid      |
+|POST	| /api/instructor/createclass	      |       Create new class as a instructor                             |
+|UPDATE	| /api/instructor/updateclass/:cid |      Update class as a instructor :cid -> class id               |
+|DELETE	| /api/instructor/deleteclass/:cid  |	    Delete created class as a instructor \| :cid -> classid      |
 
 ### Required Fields For Requests
 
