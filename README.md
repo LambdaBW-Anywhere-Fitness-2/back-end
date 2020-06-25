@@ -1,5 +1,6 @@
 #  Anywhere Fitness Back-End Project
 Link: https://anywherefitnessapp.herokuapp.com/
+DB Design Schema : https://github.com/LambdaBW-Anywhere-Fitness-2/back-end/blob/master/DB-Design-V1.png
 
 ### Client
 | Request	  | Endpoint |  Description |
