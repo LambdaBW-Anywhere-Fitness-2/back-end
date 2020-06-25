@@ -4,12 +4,12 @@ Link: https://anywherefitnessapp.herokuapp.com/
 ### Client
 | Request	  | Endpoint |  Description |
 | ------------- | ------------- | ------------- |
-| GET  |/api/clients	  |  return all clients | 
-| GET | /api/clients/class	  |  return all class info + instructor name   |
-| GET |/api/clients/:id	  |  return detailed client info by client id  |
+| GET  |/api/clients	  |  It returns all clients | 
+| GET | /api/clients/class	  |  It returns all class info + instructor name   |
+| GET |/api/clients/:id	  |  It returns detailed client info by client id  |
 | POST | /api/signup/client	 |  Sign Up as a new client  |
-| POST | /api/clients/:id/enrollclass/:cid	  |  enroll a class as a client / :id -> clientid  :cid -> classid  |
-| DELETE | /api/clients/:id/deleteclass/:cid	  |  delete enrolled  class as a client \| :id -> clientid  :cid -> classid   |
+| POST | /api/clients/:id/enrollclass/:cid	  |  Enroll a class as a client / :id -> clientid  :cid -> classid  |
+| DELETE | /api/clients/:id/deleteclass/:cid	  |  Delete enrolled  class as a client \| :id -> clientid  :cid -> classid   |
 	
 ### Instructor & Client		
 | Request	  | Endpoint |  Description |
