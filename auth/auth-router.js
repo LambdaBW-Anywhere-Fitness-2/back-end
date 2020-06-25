@@ -42,8 +42,8 @@ router.post("/signin", async (req, res) => {
     try {
       [clientInfo] = await dbClient.findClientByEmail(Info.email);
       [instructorInfo] = await dbInstructor.findInstructorByEmail(Info.email);
-      console.log("c", clientInfo);
-      console.log("I", instructorInfo);
+      // console.log("c", clientInfo);
+      // console.log("I", instructorInfo);
     } catch (err) {
       res
         .status(500)
@@ -142,36 +142,36 @@ router.post("/signup/instructor", (req, res) => {
   }
 });
 
-router.post("/signin/instructor", (req, res) => {
-  const instructorInfo = req.body;
+// router.post("/signin/instructor", (req, res) => {
+//   const instructorInfo = req.body;
 
-  if (infoIsValidInstructorSignin(instructorInfo)) {
-    dbInstructor
-      .findInstructorByEmail(instructorInfo.email)
-      .then(([found]) => {
-        if (
-          instructorInfo &&
-          bcryptjs.compareSync(instructorInfo.password, found.password)
-        ) {
-          const token = generateToken(found);
-          res.status(200).json({
-            message: "Login Successful",
-            instructor_id: found.id,
-            token,
-          });
-        } else {
-          res.status(401).json({ message: "Invalid credentials" });
-        }
-      })
-      .catch((err) => {
-        res.status(500).json({ message: "Server Error Try Again", error: err });
-      });
-  } else {
-    res.status(404).json({
-      message: "please provide valid email and password (String) ",
-    });
-  }
-});
+//   if (infoIsValidInstructorSignin(instructorInfo)) {
+//     dbInstructor
+//       .findInstructorByEmail(instructorInfo.email)
+//       .then(([found]) => {
+//         if (
+//           instructorInfo &&
+//           bcryptjs.compareSync(instructorInfo.password, found.password)
+//         ) {
+//           const token = generateToken(found);
+//           res.status(200).json({
+//             message: "Login Successful",
+//             instructor_id: found.id,
+//             token,
+//           });
+//         } else {
+//           res.status(401).json({ message: "Invalid credentials" });
+//         }
+//       })
+//       .catch((err) => {
+//         res.status(500).json({ message: "Server Error Try Again", error: err });
+//       });
+//   } else {
+//     res.status(404).json({
+//       message: "please provide valid email and password (String) ",
+//     });
+//   }
+// });
 
 function generateToken(info) {
   const payload = {

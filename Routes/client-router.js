@@ -17,12 +17,10 @@ router.get("/", checkJWT, async (req, res) => {
   }
 });
 
-/// didnt require JWT for  front-end usage will add later
-
-// router.get("/class", checkJWT, async (req, res) => {
-router.get("/class", async (req, res) => {
+router.get("/class", checkJWT, async (req, res) => {
   try {
     const data = await dbClient.findAllClientClass();
+    //console.log("DATA", data);
     if (data.length > 0) {
       res.status(200).json(data);
     } else {
@@ -35,8 +33,7 @@ router.get("/class", async (req, res) => {
 
 module.exports = router;
 
-/// didnt require JWT for  front-end usage will add later
-router.get("/:id", async (req, res) => {
+router.get("/:id", checkJWT, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -54,17 +51,17 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-/// didnt require JWT for  front-end usage will add later
-router.post("/:id/enrollclass/:cid", async (req, res) => {
+router.post("/:id/enrollclass/:cid", checkJWT, async (req, res) => {
   const { id, cid } = req.params;
 
   const enrollmentinfo = { client_id: id, class_id: cid };
 
   if (enrollmentinfo.client_id && enrollmentinfo.class_id) {
+    console.log("enrollmentinfo", enrollmentinfo);
     try {
       const [data] = await dbClient.enrollclass(enrollmentinfo);
       const classData = await dbClient.findClassById(cid);
-
+      //console.log("enrollmentinfo2", enrollmentinfo);
       if (data) {
         res.status(200).json({ enrolledclass: classData });
       } else {
@@ -78,8 +75,7 @@ router.post("/:id/enrollclass/:cid", async (req, res) => {
   }
 });
 
-/// didnt require JWT for  front-end usage will add later
-router.delete("/:id/deleteclass/:cid", async (req, res) => {
+router.delete("/:id/deleteclass/:cid", checkJWT, async (req, res) => {
   const { id, cid } = req.params;
 
   try {
