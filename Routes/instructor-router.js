@@ -16,7 +16,7 @@ router.get("/", checkJWT, async (req, res) => {
 });
 
 /// didnt require JWT for  front-end usage will add later
-router.get("/:id", async (req, res) => {
+router.get("/:id", checkJWT, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -50,7 +50,7 @@ router.post("/createclass", checkJWT, async (req, res) => {
 });
 
 /// didnt require JWT for  front-end usage will add later
-router.put("/updateclass/:id", async (req, res) => {
+router.put("/updateclass/:id", checkJWT, async (req, res) => {
   const { id } = req.params;
   const updateclass = req.body;
 
@@ -67,8 +67,7 @@ router.put("/updateclass/:id", async (req, res) => {
   }
 });
 
-/// didnt require JWT for  front-end usage will add later
-router.delete("/deleteclass/:id", async (req, res) => {
+router.delete("/deleteclass/:id", checkJWT, async (req, res) => {
   const { id } = req.params;
 
   try {
