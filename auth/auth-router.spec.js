@@ -27,10 +27,6 @@ describe("Client auth /", () => {
       .send({ email: "Mike@jourrapide.com", password: "123" });
     expect(res.type).toBe("application/json");
   }, 30000);
-
-  // beforeEach(async () => {
-  //   await db("client").truncate();
-  // });
 });
 
 describe("Instructor auth/", () => {

@@ -8,10 +8,10 @@ const {
   infoIsValidClient,
   infoIsValidClientSignin,
   infoIsValidInstructor,
-  infoIsValidInstructorSignin,
 } = require("../middlewares/checkInfo-midd.js");
 const { findInstructorByEmail } = require("../Routes/instructor-model");
 
+///client sign up
 router.post("/signup/client", (req, res) => {
   const clientInfo = req.body;
 
@@ -33,7 +33,7 @@ router.post("/signup/client", (req, res) => {
     });
   }
 });
-
+///client & instructor sign in and return JWT
 router.post("/signin", async (req, res) => {
   const Info = req.body;
   let clientInfo;
@@ -42,8 +42,6 @@ router.post("/signin", async (req, res) => {
     try {
       [clientInfo] = await dbClient.findClientByEmail(Info.email);
       [instructorInfo] = await dbInstructor.findInstructorByEmail(Info.email);
-      // console.log("c", clientInfo);
-      // console.log("I", instructorInfo);
     } catch (err) {
       res
         .status(500)
@@ -85,39 +83,6 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-// router.post("/signin/client", (req, res) => {
-//   const clientInfo = req.body;
-
-//   if (infoIsValidClientSignin(clientInfo)) {
-//     dbClient
-//       .findClientByEmail(clientInfo.email)
-//       .then(([found]) => {
-//         if (
-//           clientInfo &&
-//           bcryptjs.compareSync(clientInfo.password, found.password)
-//         ) {
-//           const token = generateToken(found);
-//           res.status(200).json({
-//             message: "Login Successful",
-//             client_id: found.id,
-//             token,
-//           });
-//         } else {
-//           res.status(401).json({ message: "Invalid credentials" });
-//         }
-//       })
-//       .catch((err) => {
-//         res
-//           .status(500)
-//           .json({ message: "Server Error Try Again Later", error: err });
-//       });
-//   } else {
-//     res.status(404).json({
-//       message: "please provide email and password (String) ",
-//     });
-//   }
-// });
-
 // --------- INSTRUCTOR---------////
 
 router.post("/signup/instructor", (req, res) => {
@@ -141,37 +106,6 @@ router.post("/signup/instructor", (req, res) => {
     });
   }
 });
-
-// router.post("/signin/instructor", (req, res) => {
-//   const instructorInfo = req.body;
-
-//   if (infoIsValidInstructorSignin(instructorInfo)) {
-//     dbInstructor
-//       .findInstructorByEmail(instructorInfo.email)
-//       .then(([found]) => {
-//         if (
-//           instructorInfo &&
-//           bcryptjs.compareSync(instructorInfo.password, found.password)
-//         ) {
-//           const token = generateToken(found);
-//           res.status(200).json({
-//             message: "Login Successful",
-//             instructor_id: found.id,
-//             token,
-//           });
-//         } else {
-//           res.status(401).json({ message: "Invalid credentials" });
-//         }
-//       })
-//       .catch((err) => {
-//         res.status(500).json({ message: "Server Error Try Again", error: err });
-//       });
-//   } else {
-//     res.status(404).json({
-//       message: "please provide valid email and password (String) ",
-//     });
-//   }
-// });
 
 function generateToken(info) {
   const payload = {

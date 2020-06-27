@@ -2,6 +2,7 @@ const router = require("express").Router();
 const dbInstructor = require("./instructor-model");
 const checkJWT = require("../middlewares/restricted-midd");
 
+////   returns all instructor
 router.get("/", checkJWT, async (req, res) => {
   try {
     const data = await dbInstructor.findAllInstructor();
@@ -15,7 +16,7 @@ router.get("/", checkJWT, async (req, res) => {
   }
 });
 
-/// didnt require JWT for  front-end usage will add later
+////   returns instructor by id
 router.get("/:id", checkJWT, async (req, res) => {
   const { id } = req.params;
 
@@ -34,6 +35,7 @@ router.get("/:id", checkJWT, async (req, res) => {
   }
 });
 
+////   returns created class instructor
 router.post("/createclass", checkJWT, async (req, res) => {
   const nwclass = req.body;
 
@@ -49,7 +51,7 @@ router.post("/createclass", checkJWT, async (req, res) => {
   }
 });
 
-/// didnt require JWT for  front-end usage will add later
+////   returns updated class by instructor
 router.put("/updateclass/:id", checkJWT, async (req, res) => {
   const { id } = req.params;
   const updateclass = req.body;
@@ -67,6 +69,7 @@ router.put("/updateclass/:id", checkJWT, async (req, res) => {
   }
 });
 
+////   returns delete class by instructor
 router.delete("/deleteclass/:id", checkJWT, async (req, res) => {
   const { id } = req.params;
 

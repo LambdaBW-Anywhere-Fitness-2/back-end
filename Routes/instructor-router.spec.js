@@ -12,13 +12,12 @@ beforeAll((done) => {
     })
     .end((err, response) => {
       token = response.body.token;
-      console.log("tokenTEst ", token);
+
       done();
     });
 });
 
 describe("GET /", () => {
-  // token not being sent - should respond with a 401
   test("It should require authorization", () => {
     return request(server)
       .get("/api/instructor")
@@ -49,7 +48,6 @@ describe("GET /", () => {
 });
 
 describe("POST / PUT", () => {
-  // token not being sent - should respond with a 401
   test("POST It should return JSON & require authorization", () => {
     return request(server)
       .post("/api/instructor/createclass")
@@ -92,7 +90,6 @@ describe("POST / PUT", () => {
   });
 });
 describe("Delete /", () => {
-  // token not being sent - should respond with a 401
   test("Delete It should require authorization & delete the class", () => {
     return request(server)
       .del("/api/instructor/deleteclass/2")
