@@ -3,6 +3,7 @@ const dbClient = require("./client-model");
 //const dbInstructor = require("./instructor-model");
 const checkJWT = require("../middlewares/restricted-midd");
 
+////   returns all client
 router.get("/", checkJWT, async (req, res) => {
   try {
     const data = await dbClient.findAllClient();
@@ -17,10 +18,11 @@ router.get("/", checkJWT, async (req, res) => {
   }
 });
 
+////   returns all class
 router.get("/class", checkJWT, async (req, res) => {
   try {
     const data = await dbClient.findAllClientClass();
-    //console.log("DATA", data);
+
     if (data.length > 0) {
       res.status(200).json(data);
     } else {
@@ -33,6 +35,7 @@ router.get("/class", checkJWT, async (req, res) => {
 
 module.exports = router;
 
+////   returns client By ID
 router.get("/:id", checkJWT, async (req, res) => {
   const { id } = req.params;
 
@@ -51,17 +54,17 @@ router.get("/:id", checkJWT, async (req, res) => {
   }
 });
 
+////   returns  enrolled class by client
 router.post("/:id/enrollclass/:cid", checkJWT, async (req, res) => {
   const { id, cid } = req.params;
 
   const enrollmentinfo = { client_id: id, class_id: cid };
 
   if (enrollmentinfo.client_id && enrollmentinfo.class_id) {
-    console.log("enrollmentinfo", enrollmentinfo);
     try {
       const [data] = await dbClient.enrollclass(enrollmentinfo);
       const classData = await dbClient.findClassById(cid);
-      //console.log("enrollmentinfo2", enrollmentinfo);
+
       if (data) {
         res.status(200).json({ enrolledclass: classData });
       } else {
@@ -75,6 +78,7 @@ router.post("/:id/enrollclass/:cid", checkJWT, async (req, res) => {
   }
 });
 
+////   returns  deleted class by client
 router.delete("/:id/deleteclass/:cid", checkJWT, async (req, res) => {
   const { id, cid } = req.params;
 

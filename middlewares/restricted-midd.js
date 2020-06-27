@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const secrets = require("../config/secretKey.js");
 
+///  check JWT exist and still valid
 function checkJWT(req, res, next) {
   const token = req.headers.authorization;
 
@@ -12,7 +13,6 @@ function checkJWT(req, res, next) {
         });
       } else {
         req.decodedJwt = decodedToken;
-        //console.log(req.decodedJwt);
         next();
       }
     });
